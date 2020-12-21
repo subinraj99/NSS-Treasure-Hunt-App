@@ -8,8 +8,11 @@ import android.widget.ProgressBar;
 
 import com.chaos.view.PinView;
 
+import java.util.concurrent.TimeUnit;
+
 public class OTPScreen extends AppCompatActivity {
 
+    String verificationCodeBySystem;
     String phoneNumberStr;
     Button verifyBtn;
     PinView OTPCodePinView;
@@ -21,10 +24,16 @@ public class OTPScreen extends AppCompatActivity {
 
         //initialization
         verifyBtn = findViewById(R.id.verifyBtn);
-        //OTPCodePinView = findViewById(R.id.pinView);
+        OTPCodePinView = findViewById(R.id.pinView);
         progressBar = findViewById(R.id.progressBar);
 
         //get intent values
-        //phoneNumberStr = getIntent().getStringExtra("PhoneNumber");
+        phoneNumberStr = getIntent().getStringExtra("PhoneNumber");
+
+        sendVerificationCode(phoneNumberStr);
+    }
+
+    private void sendVerificationCode(String phoneNo) {
+
     }
 }

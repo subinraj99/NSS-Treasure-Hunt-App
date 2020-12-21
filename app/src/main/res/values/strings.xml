@@ -23,4 +23,8 @@
     <string name="didn_t_receive_an_otp">Didn\'t receive an OTP?</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="verify">Verify</string>
+    <string name="start">Start</string>
+    <string name="enter_the_word_here">enter the word here</string>
+    <string name="submit">Submit</string>
+    <string name="thank_you_for_you_r_participation">Thank you for you\'r participation</string>
 </resources>
