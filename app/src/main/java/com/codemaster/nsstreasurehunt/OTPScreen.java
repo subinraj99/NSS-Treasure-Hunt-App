@@ -83,7 +83,6 @@ public class OTPScreen extends AppCompatActivity {
     }
 
     private void checkExistingUser() {
-        Log.i("here", "reach3");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.orderByChild("phone").equalTo(phoneNumberStr).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -110,8 +109,8 @@ public class OTPScreen extends AppCompatActivity {
                     });
                     startActivity(mainIntent);
                 } else {
-                    Log.i("here", "reach3.2");
                     Intent createAccountIntent = new Intent(getApplicationContext(), CreateUser.class);
+                    createAccountIntent.putExtra("PhoneNumber", phoneNumberStr);
                     startActivity(createAccountIntent);
                 }
                 finish();
