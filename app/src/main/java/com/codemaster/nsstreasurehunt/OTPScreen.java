@@ -99,9 +99,7 @@ public class OTPScreen extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String userName = snapshot.child("userName").getValue().toString();
-                                String teamName = snapshot.child("team").getValue().toString();
                                 SharedPreference.setUserName(getApplicationContext(), userName);
-                                SharedPreference.setUserTeam(getApplicationContext(), teamName);
                             }
                         }
 

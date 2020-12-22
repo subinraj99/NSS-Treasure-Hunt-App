@@ -11,7 +11,6 @@ public class SharedPreference {
     public static final String USER_DETAILS = "userVerificationDetails";
     public static final String USER_VERIFIED = "userVerified";
     public static final String USER_NAME = "userName";
-    public static final String USER_TEAM = "userTeam";
 
     //user details get
     public static Boolean getUserVerified(Context context) {
@@ -22,11 +21,6 @@ public class SharedPreference {
     public static String getUserName(Context context) {
         SharedPreferences SPUserDetails = context.getSharedPreferences(USER_DETAILS, MODE_PRIVATE);
         return SPUserDetails.getString(USER_NAME, "");
-    }
-
-    public static String getUserTeam(Context context) {
-        SharedPreferences SPUserDetails = context.getSharedPreferences(USER_DETAILS, MODE_PRIVATE);
-        return SPUserDetails.getString(USER_TEAM, "");
     }
 
 
@@ -42,13 +36,6 @@ public class SharedPreference {
         SharedPreferences SPUserDetails = context.getSharedPreferences(USER_DETAILS, MODE_PRIVATE);
         SharedPreferences.Editor editor = SPUserDetails.edit();
         editor.putString(USER_NAME, name);
-        editor.apply();
-    }
-
-    public static void setUserTeam(Context context, String team) {
-        SharedPreferences SPUserDetails = context.getSharedPreferences(USER_DETAILS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = SPUserDetails.edit();
-        editor.putString(USER_TEAM, team);
         editor.apply();
     }
 }
