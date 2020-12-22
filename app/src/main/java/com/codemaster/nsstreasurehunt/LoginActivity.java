@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent OTPScreenIntent = new Intent(LoginActivity.this, OTPScreen.class);
             OTPScreenIntent.putExtra("PhoneNumber", "+91" + mobileNumberTextInput.getText().toString());
             startActivity(OTPScreenIntent);
+            finish();
         });
     }
 }
