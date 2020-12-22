@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,16 +33,18 @@ public class WaitMessage extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pleasewait);
-        btn=findViewById(R.id.okBtn);
+
+        //initialization
+        btn = findViewById(R.id.okBtn);
         timeSpace=findViewById(R.id.timeSpace);
 
         df= FirebaseDatabase.getInstance().getReference();
         df.child("startTime").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if(snapshot.exists()){
                     timeSpace.setText(snapshot.child("time").getValue().toString());
+                    Log.i("here",snapshot.child("time").getValue().toString());
                 }
             }
 
@@ -51,13 +54,7 @@ public class WaitMessage extends Dialog {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WaitMessage.this.dismiss();
-            }
-        });
-
+        btn.setOnClickListener(v -> WaitMessage.this.dismiss());
     }
 
 
