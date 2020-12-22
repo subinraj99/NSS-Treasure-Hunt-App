@@ -20,7 +20,7 @@ public class CreateUser extends AppCompatActivity {
     private DatabaseReference mDatabase;
     Button createAccountBtn;
     TextInputEditText userNameText, collegeText, emailText;
-    String uid, userName;
+    String uid, userName, phoneNumberStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,9 @@ public class CreateUser extends AppCompatActivity {
         userNameText = findViewById(R.id.userNameText);
         collegeText = findViewById(R.id.collegeText);
         emailText = findViewById(R.id.emailText);
+
+        //get intent values
+        phoneNumberStr = getIntent().getStringExtra("PhoneNumber");
 
         //Initialize Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -57,7 +60,7 @@ public class CreateUser extends AppCompatActivity {
     }
 
     private void UploadUserDetails(String uid, String userStr, String collegeStr, String emailStr) {
-        UserDetails user = new UserDetails(uid, userStr, collegeStr, emailStr);
+        UserDetails user = new UserDetails(uid, userStr, collegeStr, emailStr, phoneNumberStr);
         mDatabase.child("users").child(uid).setValue(user).addOnSuccessListener(aVoid -> {
             SharedPreference.setUserVerified(getApplicationContext(), true);
             SharedPreference.setUserName(getApplicationContext(), userName);
