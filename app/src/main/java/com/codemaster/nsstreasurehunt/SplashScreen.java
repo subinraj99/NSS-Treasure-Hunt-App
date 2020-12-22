@@ -23,13 +23,9 @@ public class SplashScreen extends AppCompatActivity {
 
         //initialization
         logoSplashScreen = findViewById(R.id.logo);
-        welcomeText = findViewById(R.id.welcome_text);
 
-        zoomAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.zoom);
-        logoSplashScreen.setAnimation(zoomAnimation);
 
-        fadeAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade);
-        welcomeText.setAnimation(fadeAnimation);
+
 
         new Handler().postDelayed(() -> {
             Intent verifyIntent = new Intent(SplashScreen.this, LoginActivity.class);
