@@ -18,8 +18,6 @@ public class HomeScreen extends AppCompatActivity {
         startBtn = findViewById(R.id.startBtn);
 
         startBtn.setOnClickListener(v -> {
-
         });
     }
-    
 }

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NSSTreasureHunt">
-        <activity android:name=".FinishScreen"></activity>
+        <activity android:name=".FinishScreen" />
         <activity android:name=".QuizScreen" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".OTPScreen" />

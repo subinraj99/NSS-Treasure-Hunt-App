@@ -27,4 +27,6 @@
     <string name="enter_the_word_here">enter the word here</string>
     <string name="submit">Submit</string>
     <string name="thank_you_for_you_r_participation">Thank you for you\'r participation</string>
+    <string name="q_n_o">Q.N.O</string>
+    <string name="email">Email</string>
 </resources>

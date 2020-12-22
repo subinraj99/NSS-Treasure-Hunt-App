@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "170547174211",
+    "project_id": "nss-treasure-hunt",
+    "storage_bucket": "nss-treasure-hunt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170547174211:android:c27487667a18842a26adf6",
+        "android_client_info": {
+          "package_name": "com.codemaster.nsstreasurehunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170547174211-5861u135frhq0lak9fsbielch0hgl1gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB2puIsrJHACPMSatXSIrGPie7aDDjHqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170547174211-5861u135frhq0lak9fsbielch0hgl1gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
