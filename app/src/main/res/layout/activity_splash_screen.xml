@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:background="#ffb402">
+    android:id="@+id/ssbg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".SplashScreen">
 
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash"
-        android:visibility="visible"
-        tools:src="@drawable/splash"
-        tools:visibility="visible" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/SplashBG"
+        android:src="@drawable/splashjpg1" />
 
 
 </RelativeLayout>

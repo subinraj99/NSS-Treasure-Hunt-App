@@ -30,4 +30,6 @@
     <string name="q_n_o">Q.N.O</string>
     <string name="email">Email</string>
     <string name="welcomeText">NSS Treasure Hunt</string>
+    <string name="SplashBG">SplashScreen Background</string>
+    <string name="textview">TextView</string>
 </resources>
