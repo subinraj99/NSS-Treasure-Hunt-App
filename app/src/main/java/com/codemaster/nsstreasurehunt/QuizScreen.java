@@ -35,7 +35,7 @@ public class QuizScreen extends AppCompatActivity {
     ProgressBar progressBar;
     String uid;
     int currQno;
-
+    QuestionDetails questionDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,28 +109,48 @@ public class QuizScreen extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    QuestionDetails questionDetails = snapshot.getValue(QuestionDetails.class);
-                    Log.i("here", String.valueOf(snapshot));
+                    questionDetails = snapshot.getValue(QuestionDetails.class);
                     //initialize values
                     qnoText.setText(String.valueOf(currQno));
-                    //Log.i("here", String.valueOf(questionDetails.getImg()));
-                    // Load the image using Glide
-                    Picasso.get().load("gs://nss-treasure-hunt.appspot.com/damu.jpg").into(hintImg);
+
+                    if(questionDetails.isImgAvl()){
+                        // Load the image using Picasso
+                        hintImg.setVisibility(View.VISIBLE);
+                        Picasso.get().load(questionDetails.getImg()).into(hintImg);
+                        Toast.makeText(getApplicationContext(), "New hint Published!!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        hintImg.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Hint currently not published for this question, check back later", Toast.LENGTH_SHORT).show();
+                    }
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     //hint fetch function
     private void hintFetch() {
+        questionFetch(currQno);
     }
 
     //answer check function
     private void checkAnswer() {
+        String answerStr = answerText.getText().toString().trim();
+        if(answerStr.equals(questionDetails.getAnswer())){
+            currQno++;
+            questionFetch(currQno);
+            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+            answerText.setText("");
+        } else {
+            progressBar.setVisibility(View.GONE);
+            answerText.setText("");
+            Toast.makeText(getApplicationContext(), "That's not the answer!!!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
