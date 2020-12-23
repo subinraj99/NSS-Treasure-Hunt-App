@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.codemaster.nsstreasurehunt.model.OnGoingDetails;
 import com.codemaster.nsstreasurehunt.model.QuestionDetails;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class QuizScreen extends AppCompatActivity {
 
@@ -110,12 +110,12 @@ public class QuizScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     QuestionDetails questionDetails = snapshot.getValue(QuestionDetails.class);
-
+                    Log.i("here", String.valueOf(snapshot));
                     //initialize values
                     qnoText.setText(String.valueOf(currQno));
-                    Log.i("here", String.valueOf(questionDetails));
+                    //Log.i("here", String.valueOf(questionDetails.getImg()));
                     // Load the image using Glide
-                    Glide.with(getApplicationContext()).load(questionDetails.getImg()).into(hintImg);
+                    Picasso.get().load("gs://nss-treasure-hunt.appspot.com/damu.jpg").into(hintImg);
                 }
             }
 
