@@ -26,6 +26,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         mauth=FirebaseAuth.getInstance();
         df= FirebaseDatabase.getInstance().getReference();
+
         //initialization
         waitMessage=new WaitMessage(HomeScreen.this);
         startBtn = findViewById(R.id.startBtn);
