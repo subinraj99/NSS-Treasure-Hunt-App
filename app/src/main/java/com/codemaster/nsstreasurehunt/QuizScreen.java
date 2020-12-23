@@ -37,6 +37,7 @@ public class QuizScreen extends AppCompatActivity {
     int currQno;
     QuestionDetails questionDetails;
     ValueEventListener valueEventListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +107,7 @@ public class QuizScreen extends AppCompatActivity {
 
     //question fetch
     private void questionFetch(int currQno) {
-        Log.i("here fun",String.valueOf(currQno));
+        Log.i("here fun", String.valueOf(currQno));
         mDatabase.removeEventListener(valueEventListener);
         mDatabase.child("Questions").child(String.valueOf(currQno)).addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,7 +117,7 @@ public class QuizScreen extends AppCompatActivity {
                     //initialize values
                     qnoText.setText(String.valueOf(currQno));
 
-                    if(questionDetails.isImgAvl()){
+                    if (questionDetails.isImgAvl()) {
                         // Load the image using Picasso
                         hintImg.setVisibility(View.VISIBLE);
                         Picasso.get().load(questionDetails.getImg()).into(hintImg);
@@ -145,11 +146,11 @@ public class QuizScreen extends AppCompatActivity {
     //answer check function
     private void checkAnswer() {
         String answerStr = answerText.getText().toString().trim();
-        if(answerStr.equals(questionDetails.getAnswer())){
+        if (answerStr.equals(questionDetails.getAnswer())) {
             OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
             currQno++;
             mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
-                Log.i("here", "called"+ String.valueOf(currQno));
+                Log.i("here", "called" + String.valueOf(currQno));
                 questionFetch(currQno);
             }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
 
