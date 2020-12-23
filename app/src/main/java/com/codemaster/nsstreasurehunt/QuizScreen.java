@@ -1,30 +1,23 @@
 package com.codemaster.nsstreasurehunt;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.File;
-import java.lang.reflect.Member;
 
 public class QuizScreen extends AppCompatActivity {
 
-    ImageView hintImg;
+    ImageView hintImg, hintRefreshImg;
     TextInputEditText answerText;
     Button submitBtn;
-
-    DatabaseReference reff;
+    TextView qnoText;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +27,41 @@ public class QuizScreen extends AppCompatActivity {
         hintImg = findViewById(R.id.hintImage);
         answerText = findViewById(R.id.answerText);
         submitBtn = findViewById(R.id.startBtn);
+        qnoText = findViewById(R.id.questionNumber);
+        hintRefreshImg = findViewById(R.id.hintRefresh);
+        progressBar = findViewById(R.id.progressBar);
 
+        // initial question fetch
+        questionFetch();
 
+        // on the press of submit answer check
+        submitBtn.setOnClickListener(v -> {
+            if(answerText.getText().toString().isEmpty()){
+                answerText.setError("Enter a answer to submit");
+                return;
+            }
+            progressBar.setVisibility(View.VISIBLE);
+            checkAnswer();
+        });
 
-
-
-
-        }
-
-
+        //on hint fetch
+        hintRefreshImg.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            hintFetch();
+        });
 
     }
+
+    //initial question fetch based on resume or start
+    private void questionFetch() {
+    }
+
+    //hint fetch function
+    private void hintFetch() {
+
+    }
+
+    //answer check function
+    private void checkAnswer() {
+    }
+}
