@@ -33,7 +33,6 @@ public class HomeScreen extends AppCompatActivity {
         df.child("ongoing").child(mauth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if(snapshot.exists()){
                     startBtn.setText("Resume");
                 }
@@ -45,8 +44,8 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        //on start button click
         startBtn.setOnClickListener(v -> {
-
             df.child("start").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -63,7 +62,6 @@ public class HomeScreen extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
 

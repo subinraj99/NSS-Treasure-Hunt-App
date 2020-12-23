@@ -1,23 +1,41 @@
 package com.codemaster.nsstreasurehunt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.codemaster.nsstreasurehunt.model.OnGoingDetails;
+import com.codemaster.nsstreasurehunt.model.QuestionDetails;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 public class QuizScreen extends AppCompatActivity {
 
+    private DatabaseReference mDatabase;
     ImageView hintImg, hintRefreshImg;
     TextInputEditText answerText;
     Button submitBtn;
     TextView qnoText;
     ProgressBar progressBar;
+    String uid;
+    int currQno;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,17 +44,20 @@ public class QuizScreen extends AppCompatActivity {
         //initialization
         hintImg = findViewById(R.id.hintImage);
         answerText = findViewById(R.id.answerText);
-        submitBtn = findViewById(R.id.startBtn);
+        submitBtn = findViewById(R.id.submit);
         qnoText = findViewById(R.id.questionNumber);
         hintRefreshImg = findViewById(R.id.hintRefresh);
         progressBar = findViewById(R.id.progressBar);
 
+        //Initialize Firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // initial question fetch
-        questionFetch();
+        initialSetUp();
 
         // on the press of submit answer check
         submitBtn.setOnClickListener(v -> {
-            if(answerText.getText().toString().isEmpty()){
+            if (answerText.getText().toString().isEmpty()) {
                 answerText.setError("Enter a answer to submit");
                 return;
             }
@@ -53,12 +74,60 @@ public class QuizScreen extends AppCompatActivity {
     }
 
     //initial question fetch based on resume or start
-    private void questionFetch() {
+    private void initialSetUp() {
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentFirebaseUser != null) {
+            uid = currentFirebaseUser.getUid();
+        }
+
+        mDatabase.child("ongoing").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    OnGoingDetails onGoingDetails = snapshot.getValue(OnGoingDetails.class);
+                    currQno = Integer.parseInt(onGoingDetails.getCurrQno());
+                    questionFetch(currQno);
+                } else {
+                    OnGoingDetails onGoingDetails = new OnGoingDetails("1", ServerValue.TIMESTAMP);
+                    mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
+                        questionFetch(1);
+                        Toast.makeText(getApplicationContext(), "Started", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //question fetch
+    private void questionFetch(int currQno) {
+        mDatabase.child("Questions").child(String.valueOf(currQno)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    QuestionDetails questionDetails = snapshot.getValue(QuestionDetails.class);
+
+                    //initialize values
+                    qnoText.setText(String.valueOf(currQno));
+                    Log.i("here", String.valueOf(questionDetails));
+                    // Load the image using Glide
+                    Glide.with(getApplicationContext()).load(questionDetails.getImg()).into(hintImg);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //hint fetch function
     private void hintFetch() {
-
     }
 
     //answer check function
