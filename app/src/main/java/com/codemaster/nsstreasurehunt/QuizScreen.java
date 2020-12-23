@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,7 +116,7 @@ public class QuizScreen extends AppCompatActivity {
                     qnoText.setText(String.valueOf(currQno));
                     //Log.i("here", String.valueOf(questionDetails.getImg()));
                     // Load the image using Glide
-                    Picasso.get().load("gs://nss-treasure-hunt.appspot.com/damu.jpg").into(hintImg);
+                    Picasso.get().load(questionDetails.getImg()).into(hintImg);
                 }
             }
 
