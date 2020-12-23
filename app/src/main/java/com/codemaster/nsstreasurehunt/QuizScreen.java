@@ -36,6 +36,7 @@ public class QuizScreen extends AppCompatActivity {
     String uid;
     int currQno;
     QuestionDetails questionDetails;
+    ValueEventListener valueEventListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,15 +81,15 @@ public class QuizScreen extends AppCompatActivity {
             uid = currentFirebaseUser.getUid();
         }
 
-        mDatabase.child("ongoing").child(uid).addValueEventListener(new ValueEventListener() {
+        valueEventListener = mDatabase.child("ongoing").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     OnGoingDetails onGoingDetails = snapshot.getValue(OnGoingDetails.class);
-                    currQno = Integer.parseInt(onGoingDetails.getCurrQno());
+                    currQno = Integer.parseInt(onGoingDetails.getCurrQno()) + 1;
                     questionFetch(currQno);
                 } else {
-                    OnGoingDetails onGoingDetails = new OnGoingDetails("1", ServerValue.TIMESTAMP);
+                    OnGoingDetails onGoingDetails = new OnGoingDetails("0", ServerValue.TIMESTAMP);
                     mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
                         questionFetch(1);
                         Toast.makeText(getApplicationContext(), "Started", Toast.LENGTH_SHORT).show();
@@ -105,6 +106,8 @@ public class QuizScreen extends AppCompatActivity {
 
     //question fetch
     private void questionFetch(int currQno) {
+        Log.i("here fun",String.valueOf(currQno));
+        mDatabase.removeEventListener(valueEventListener);
         mDatabase.child("Questions").child(String.valueOf(currQno)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -143,8 +146,13 @@ public class QuizScreen extends AppCompatActivity {
     private void checkAnswer() {
         String answerStr = answerText.getText().toString().trim();
         if(answerStr.equals(questionDetails.getAnswer())){
+            OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
             currQno++;
-            questionFetch(currQno);
+            mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
+                Log.i("here", "called"+ String.valueOf(currQno));
+                questionFetch(currQno);
+            }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
+
             Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
             answerText.setText("");
         } else {
