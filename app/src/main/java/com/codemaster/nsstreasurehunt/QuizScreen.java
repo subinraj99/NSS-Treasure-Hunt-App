@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.lang.reflect.Member;
 
 public class QuizScreen extends AppCompatActivity {
@@ -36,22 +37,11 @@ public class QuizScreen extends AppCompatActivity {
 
 
 
-        reff= FirebaseDatabase.getInstance().getReference().child("Member").child("1");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String text=dataSnapshot.child("name").getValue().toString();
-                answerText.setText(text);
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+        }
 
 
 
     }
-}
