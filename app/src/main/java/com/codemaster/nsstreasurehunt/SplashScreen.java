@@ -12,12 +12,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.codemaster.nsstreasurehunt.SharedPreference.SharedPreference;
 
 public class SplashScreen extends AppCompatActivity {
 
 
-    ImageView logoSplashScreen;
+    ImageView dlogo,splashbg,treshunt;
+    LottieAnimationView lottieAnimationView;
+
     Animation fadeAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,17 @@ public class SplashScreen extends AppCompatActivity {
 
 
         //initialization
-        logoSplashScreen = findViewById(R.id.logo);
+        dlogo = findViewById(R.id.deekshalogo);
+        splashbg = findViewById(R.id.logo);
+        treshunt = findViewById(R.id.thunt);
+        lottieAnimationView = findViewById(R.id.lottie);
+
+        splashbg.animate().translationY(1200).setDuration(1500).setStartDelay(3000);
+        dlogo.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
+        treshunt.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
+        lottieAnimationView.animate().translationY(500).setDuration(1000).setStartDelay(3000);
+
+
 
         fadeAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade);
 
