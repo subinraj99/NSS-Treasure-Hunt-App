@@ -1,60 +1,58 @@
 package com.codemaster.nsstreasurehunt;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.codemaster.nsstreasurehunt.SharedPreference.SharedPreference;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
-
-import java.security.Timestamp;
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity {
-    ImageView logoSplashScreen;
-    TextView welcomeText;
-    Animation zoomAnimation, fadeAnimation;
+
+
+    ImageView dlogo,splashbg,treshunt;
+    LottieAnimationView lottieAnimationView;
+
+    Animation fadeAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
 
-        //initialization
-        logoSplashScreen = findViewById(R.id.logo);
-        welcomeText = findViewById(R.id.welcome_text);
 
-        zoomAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.zoom);
-        logoSplashScreen.setAnimation(zoomAnimation);
+
+        //initialization
+        dlogo = findViewById(R.id.deekshalogo);
+        splashbg = findViewById(R.id.logo);
+        treshunt = findViewById(R.id.thunt);
+        lottieAnimationView = findViewById(R.id.lottie);
+
+        splashbg.animate().translationY(1200).setDuration(1500).setStartDelay(3000);
+        dlogo.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
+        treshunt.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
+        lottieAnimationView.animate().translationY(500).setDuration(1000).setStartDelay(3000);
+
+
 
         fadeAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade);
 
+
+
         new Handler().postDelayed(() -> {
-            if (SharedPreference.getUserVerified(getApplicationContext())){
-                Intent mainIntent = new Intent(getApplicationContext(), HomeScreen.class);
-                startActivity(mainIntent);
-            }else {
-                Intent verifyIntent = new Intent(SplashScreen.this, LoginActivity.class);
-                startActivity(verifyIntent);
-            }
+            Intent verifyIntent = new Intent(SplashScreen.this, LoginActivity.class);
+            startActivity(verifyIntent);
             finish();
         }, 1500);
     }
