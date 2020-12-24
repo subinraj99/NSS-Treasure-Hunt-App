@@ -1,6 +1,7 @@
 package com.codemaster.nsstreasurehunt.model;
 
 public class QuestionDetails {
+    private String qNo;
     private String img;
     private boolean imgAvl;
     private String answer;
@@ -9,7 +10,8 @@ public class QuestionDetails {
         //required
     }
 
-    public QuestionDetails(String img, boolean imgAvl, String answer) {
+    public QuestionDetails(String qNo, String img, boolean imgAvl, String answer) {
+        this.qNo = qNo;
         this.img = img;
         this.imgAvl = imgAvl;
         this.answer = answer;
@@ -37,5 +39,13 @@ public class QuestionDetails {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getqNo() {
+        return qNo;
+    }
+
+    public void setqNo(String qNo) {
+        this.qNo = qNo;
     }
 }
