@@ -89,6 +89,12 @@ public class QuizScreen extends AppCompatActivity {
                 if (snapshot.exists()) {
                     OnGoingDetails onGoingDetails = snapshot.getValue(OnGoingDetails.class);
                     currQno = Integer.parseInt(onGoingDetails.getCurrQno()) + 1;
+                    if (currQno - 1 == 20) {
+                        Intent finishScreenIntent = new Intent(getApplicationContext(), FinishScreen.class);
+                        startActivity(finishScreenIntent);
+                        finish();
+                        return;
+                    }
                     questionFetch(currQno);
                 } else {
                     OnGoingDetails onGoingDetails = new OnGoingDetails("0", ServerValue.TIMESTAMP);
@@ -147,26 +153,26 @@ public class QuizScreen extends AppCompatActivity {
     //answer check function
     private void checkAnswer() {
         String answerStr = answerText.getText().toString().trim();
-        if (currQno + 1 == 20) {
-            Intent finishScreenIntent = new Intent(getApplicationContext(), FinishScreen.class);
-            startActivity(finishScreenIntent);
-            finish();
-        } else {
-            if (answerStr.equals(questionDetails.getAnswer())) {
-                OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
-                currQno++;
-                mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
-                    Log.i("here", "called" + String.valueOf(currQno));
-                    questionFetch(currQno);
-                }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
 
-                Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
-                answerText.setText("");
-            } else {
-                progressBar.setVisibility(View.GONE);
-                answerText.setText("");
-                Toast.makeText(getApplicationContext(), "That's not the answer!!!", Toast.LENGTH_SHORT).show();
-            }
+        if (answerStr.equals(questionDetails.getAnswer())) {
+            OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
+            currQno++;
+            mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
+                if (currQno == 20) {
+                    Intent finishScreenIntent = new Intent(getApplicationContext(), FinishScreen.class);
+                    startActivity(finishScreenIntent);
+                    finish();
+                } else {
+                    questionFetch(currQno);
+                }
+            }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
+
+            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+            answerText.setText("");
+        } else {
+            progressBar.setVisibility(View.GONE);
+            answerText.setText("");
+            Toast.makeText(getApplicationContext(), "That's not the answer!!!", Toast.LENGTH_SHORT).show();
         }
     }
 }
