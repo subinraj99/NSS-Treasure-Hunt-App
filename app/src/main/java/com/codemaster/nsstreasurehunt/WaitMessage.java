@@ -20,13 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class WaitMessage extends Dialog {
-    DatabaseReference df;
     Button btn;
     TextView timeSpace;
     Activity c;
-    public WaitMessage(Activity a) {
+    String messageStr;
+
+    public WaitMessage(Activity a, String messageStr) {
         super(a);
         this.c = a;
+        this.messageStr = messageStr;
     }
 
     @Override
@@ -36,23 +38,9 @@ public class WaitMessage extends Dialog {
 
         //initialization
         btn = findViewById(R.id.okBtn);
-        timeSpace=findViewById(R.id.timeSpace);
+        timeSpace = findViewById(R.id.timeSpace);
 
-        df= FirebaseDatabase.getInstance().getReference();
-        df.child("startTime").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    timeSpace.setText(snapshot.child("time").getValue().toString());
-                    Log.i("here",snapshot.child("time").getValue().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        timeSpace.setText(messageStr);
 
         btn.setOnClickListener(v -> WaitMessage.this.dismiss());
     }
