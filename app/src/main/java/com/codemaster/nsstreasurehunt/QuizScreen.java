@@ -3,6 +3,7 @@ package com.codemaster.nsstreasurehunt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -146,20 +147,26 @@ public class QuizScreen extends AppCompatActivity {
     //answer check function
     private void checkAnswer() {
         String answerStr = answerText.getText().toString().trim();
-        if (answerStr.equals(questionDetails.getAnswer())) {
-            OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
-            currQno++;
-            mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
-                Log.i("here", "called" + String.valueOf(currQno));
-                questionFetch(currQno);
-            }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
-
-            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
-            answerText.setText("");
+        if (currQno + 1 == 20) {
+            Intent finishScreenIntent = new Intent(getApplicationContext(), FinishScreen.class);
+            startActivity(finishScreenIntent);
+            finish();
         } else {
-            progressBar.setVisibility(View.GONE);
-            answerText.setText("");
-            Toast.makeText(getApplicationContext(), "That's not the answer!!!", Toast.LENGTH_SHORT).show();
+            if (answerStr.equals(questionDetails.getAnswer())) {
+                OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
+                currQno++;
+                mDatabase.child("ongoing").child(uid).setValue(onGoingDetails).addOnSuccessListener(aVoid -> {
+                    Log.i("here", "called" + String.valueOf(currQno));
+                    questionFetch(currQno);
+                }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Some error occurred, restart the hunt", Toast.LENGTH_SHORT).show());
+
+                Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                answerText.setText("");
+            } else {
+                progressBar.setVisibility(View.GONE);
+                answerText.setText("");
+                Toast.makeText(getApplicationContext(), "That's not the answer!!!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
