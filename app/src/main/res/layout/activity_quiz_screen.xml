@@ -33,12 +33,23 @@
         tools:ignore="ContentDescription"
         android:layout_below="@+id/questionNumber"/>
 
+    <ImageView
+        android:id="@+id/hintRefresh"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/lightbulb"
+        android:layout_marginVertical="5dp"
+        android:layout_alignParentEnd="true"
+        tools:ignore="ContentDescription"
+        android:layout_below="@+id/hintImage"
+        android:layout_alignParentRight="true" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/answerTextBox"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hintImage"
+        android:layout_below="@id/hintRefresh"
         android:layout_marginTop="15dp"
         android:hint="@string/enter_the_word_here"
         android:textColorHint="@color/black"

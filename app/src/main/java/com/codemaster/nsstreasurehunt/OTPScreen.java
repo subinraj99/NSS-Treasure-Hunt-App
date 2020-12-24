@@ -68,13 +68,11 @@ public class OTPScreen extends AppCompatActivity {
     private void verifyCode(String codeByUser) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem, codeByUser);
         signInTheUserByCredential(credential);
-        Log.i("here", "reach1");
     }
 
     private void signInTheUserByCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential).addOnCompleteListener(OTPScreen.this, task -> {
             if (task.isSuccessful()) {
-                Log.i("here", "reach2");
                 checkExistingUser();
             } else {
                 Toast.makeText(OTPScreen.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
