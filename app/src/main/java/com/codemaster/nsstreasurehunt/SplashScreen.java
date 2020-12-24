@@ -24,14 +24,10 @@ public class SplashScreen extends AppCompatActivity {
     Animation fadeAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
-
-
 
         //initialization
         dlogo = findViewById(R.id.deekshalogo);
@@ -44,26 +40,17 @@ public class SplashScreen extends AppCompatActivity {
         treshunt.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
         lottieAnimationView.animate().translationY(500).setDuration(1000).setStartDelay(3000);
 
-
-
         fadeAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade);
 
-
-
         new Handler().postDelayed(() -> {
-            Intent verifyIntent = new Intent(SplashScreen.this, LoginActivity.class);
-            startActivity(verifyIntent);
+            if (SharedPreference.getUserVerified(getApplicationContext())){
+                Intent mainIntent = new Intent(getApplicationContext(), HomeScreen.class);
+                startActivity(mainIntent);
+            }else {
+                Intent verifyIntent = new Intent(SplashScreen.this, LoginActivity.class);
+                startActivity(verifyIntent);
+            }
             finish();
         }, 1500);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (SharedPreference.getUserVerified(getApplicationContext())){
-            Intent mainIntent = new Intent(getApplicationContext(), HomeScreen.class);
-            startActivity(mainIntent);
-            finish();
-        }
     }
 }
