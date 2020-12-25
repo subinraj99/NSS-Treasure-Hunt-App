@@ -35,10 +35,10 @@ public class SplashScreen extends AppCompatActivity {
         treshunt = findViewById(R.id.thunt);
         lottieAnimationView = findViewById(R.id.lottie);
 
-        splashbg.animate().translationY(1200).setDuration(1500).setStartDelay(3000);
-        dlogo.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
-        treshunt.animate().translationXBy(10).setDuration(1500).setStartDelay(100);
-        lottieAnimationView.animate().translationY(500).setDuration(1000).setStartDelay(3000);
+        splashbg.animate().translationY(1200).setDuration(2000).setStartDelay(3000);
+        dlogo.animate().translationXBy(10).setDuration(2000).setStartDelay(100);
+        treshunt.animate().translationXBy(10).setDuration(2000).setStartDelay(100);
+        lottieAnimationView.animate().translationY(500).setDuration(2000).setStartDelay(3000);
 
         fadeAnimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade);
 
