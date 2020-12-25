@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.codemaster.nsstreasurehunt.model.StartQuizDetails;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +27,30 @@ public class HomeScreen extends AppCompatActivity {
     Button startBtn;
     WaitMessage waitMessage;
     ProgressBar progressBar;
+    VideoView video1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        //Background Video
+        video1=findViewById(R.id.bgvid1);
+
+        String path ="android.resource://com.codemaster.nsstreasurehunt/"+R.raw.bgvd1;
+        Uri u = Uri.parse(path);
+        video1.setVideoURI(u);
+        video1.start();
+
+        video1.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.setLooping(true);
+
+
+            }
+        });
+
 
         //firebase initialize
         mauth = FirebaseAuth.getInstance();
@@ -47,6 +69,8 @@ public class HomeScreen extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.GONE);
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

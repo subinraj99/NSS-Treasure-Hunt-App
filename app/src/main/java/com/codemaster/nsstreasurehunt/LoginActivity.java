@@ -1,10 +1,14 @@
 package com.codemaster.nsstreasurehunt;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,14 +19,37 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText mobileNumberTextInput;
     Button sendOTPBtn;
+    VideoView video1;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+    //Background Video
+        video1=findViewById(R.id.bgvid1);
+
+        String path ="android.resource://com.codemaster.nsstreasurehunt/"+R.raw.bgvd1;
+        Uri u = Uri.parse(path);
+        video1.setVideoURI(u);
+        video1.start();
+
+        video1.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.setLooping(true);
+
+
+            }
+        });
+
+
+
         //initialization
         mobileNumberTextInput = findViewById(R.id.mobileNumberTextInput);
         sendOTPBtn = findViewById(R.id.sentOTPBtn);
+
 
         //sendOtp button clicked listener
         sendOTPBtn.setOnClickListener(v -> {
@@ -37,5 +64,22 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(OTPScreenIntent);
             finish();
         });
+
+    }
+
+    protected void OnResume() {
+        video1.resume();
+        super.onResume();
+
+    }
+
+    protected void OnPause() {
+        video1.suspend();
+        super.onPause();
+    }
+
+    protected void OnTesting(){
+        video1.stopPlayback();
+        super.onDestroy();
     }
 }
