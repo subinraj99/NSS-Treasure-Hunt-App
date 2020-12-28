@@ -36,8 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         blwtxt.animate().translationY(-100).setDuration(100).setStartDelay(150);
         signin.animate().alphaBy(1F).setDuration(500).setStartDelay(300);
         blwtxt.animate().alphaBy(1F).setDuration(500).setStartDelay(300);
-        String path ="android.resource://com.codemaster.nsstreasurehunt/"+R.raw.bgvd1;
-        Uri u = Uri.parse(path);
+
 
 
 

@@ -27,7 +27,7 @@
     <string name="start">Start</string>
     <string name="enter_the_word_here">Enter The Answer Here</string>
     <string name="submit">Submit</string>
-    <string name="thank_you_for_you_r_participation">Thank you for you\'r participation</string>
+    <string name="thank_you_for_you_r_participation">CONGRATULATIONS</string>
     <string name="q_n_o">Q.N.O</string>
     <string name="email">Email</string>
     <string name="welcomeText">NSS Treasure Hunt</string>
@@ -36,5 +36,5 @@
     <string name="deekshalogo">Deeksha Logo</string>
     <string name="thunt">Tresure Hunt Logo</string>
     <string name="ok">OK</string>
-
+    <string name="thanks">Thanks For Participation</string>
 </resources>
