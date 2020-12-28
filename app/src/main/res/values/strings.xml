@@ -11,7 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="lets_get_started">Lets Get Started</string>
-    <string name="sign_in">Sign In</string>
+    <string name="sign_in">SIGN IN</string>
     <string name="send_otp">Send OTP</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="create_your_account_to_continue">Create your account to continue</string>
