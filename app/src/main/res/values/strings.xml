@@ -35,6 +35,20 @@
     <string name="textview">TextView</string>
     <string name="deekshalogo">Deeksha Logo</string>
     <string name="thunt">Tresure Hunt Logo</string>
+    <string name="devby">
+        <br></br>
+        DEVELOPED BY
+        <br></br>
+        <br>Vishnu P</br>
+        <br></br>
+        <br>Fajar CP</br>
+        <br></br>
+        <br>Sourabh MV</br>
+        <br></br>
+        <br>Aswin P</br>
+        <br></br>
+        <br>Subin Raj</br>
+    </string>
     <string name="ok">OK</string>
     <string name="thanks">Thanks For Participation</string>
 </resources>
