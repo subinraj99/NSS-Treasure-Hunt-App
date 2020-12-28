@@ -154,6 +154,7 @@ public class QuizScreen extends AppCompatActivity {
     private void checkAnswer() {
         String answerStr = answerText.getText().toString().trim();
 
+
         if (answerStr.equals(questionDetails.getAnswer())) {
             OnGoingDetails onGoingDetails = new OnGoingDetails(String.valueOf(currQno), ServerValue.TIMESTAMP);
             currQno++;

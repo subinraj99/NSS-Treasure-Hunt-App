@@ -32,10 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         signin=findViewById(R.id.textView1);
         blwtxt=findViewById(R.id.textView2);
 
-        signin.animate().translationY(1200).setDuration(2000).setStartDelay(3000);
-        blwtxt.animate().translationY(1200).setDuration(2000).setStartDelay(3000);
-
-
+        signin.animate().translationY(-100).setDuration(100).setStartDelay(150);
+        blwtxt.animate().translationY(-100).setDuration(100).setStartDelay(150);
+        signin.animate().alphaBy(1F).setDuration(500).setStartDelay(300);
+        blwtxt.animate().alphaBy(1F).setDuration(500).setStartDelay(300);
         String path ="android.resource://com.codemaster.nsstreasurehunt/"+R.raw.bgvd1;
         Uri u = Uri.parse(path);
 

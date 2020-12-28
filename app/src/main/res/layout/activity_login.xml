@@ -24,6 +24,7 @@
         android:textColor="@color/black"
         android:fontFamily="sans-serif-black"
         android:layout_centerVertical="true"
+        android:alpha="0"
         android:textSize="30sp"
         android:textStyle="bold"
         tools:ignore="UnknownId" />
@@ -37,6 +38,7 @@
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:layout_alignParentEnd="true"
+        android:alpha="0"
         android:layout_gravity="center"
         android:text="@string/lets_get_started"
         android:textColor="@color/white"
