@@ -27,12 +27,12 @@ public class DevScreen extends AppCompatActivity {
         aswin = findViewById(R.id.aswin);
         subin = findViewById(R.id.subin);
 
-        devby.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
-        vishnu.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
-        fajar.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
-        aswin.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
-        subin.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
-        sou.animate().translationYBy(-250).setDuration(1000).setStartDelay(1500);
+        devby.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
+        vishnu.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
+        fajar.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
+        aswin.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
+        subin.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
+        sou.animate().translationYBy(-255).setDuration(1000).setStartDelay(1500);
 
         devby.animate().alphaBy(1).setDuration(1000).setStartDelay(1500);
         vishnu.animate().alphaBy(1).setDuration(1000).setStartDelay(1500);
